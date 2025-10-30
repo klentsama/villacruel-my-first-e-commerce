@@ -68,7 +68,7 @@ class UserResource extends Resource
                         ->dateTime()
                         ->sortable(),
             ])
-            ->actions([
+            ->recordActions([
                     ActionGroup::make([
                         ViewAction::make(),
                         EditAction::make(),
