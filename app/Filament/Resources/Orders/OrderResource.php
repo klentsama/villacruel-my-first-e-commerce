@@ -13,7 +13,6 @@ use App\Filament\Resources\Orders\Tables\OrdersTable;
 use App\Models\Order;
 use App\Models\Product;
 use BackedEnum;
-use Dom\Text;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
@@ -74,28 +73,28 @@ class OrderResource extends Resource
 
                                 ToggleButtons::make('status')
                                 ->inline()
-                                ->default('new ')
+                                ->default('new')
                                 ->required()
                                 ->options([
                                     'new' => 'New',
                                     'processing' => 'Processing',
                                     'shipped' => 'Shipped',
                                     'delivered' => 'Delivered',
-                                    'canceled' => 'Canceled',
+                                    'cancelled' => 'Cancelled',
                                 ])
                                 ->colors([
                                     'new' => 'info',
                                     'processing' => 'warning',
                                     'shipped' => 'success',
                                     'delivered' => 'success',
-                                    'canceled' => 'danger',
+                                    'cancelled' => 'danger',
                                 ])
                                 ->icons([
                                     'new' => 'heroicon-m-sparkles',
                                     'processing' => 'heroicon-m-arrow-path',
                                     'shipped' => 'heroicon-m-truck',
                                     'delivered' => 'heroicon-m-check-badge',
-                                    'canceled' => 'heroicon-m-x-circle',
+                                    'cancelled' => 'heroicon-m-x-circle',
                                 ]),
 
                                 Select::make('currency')
@@ -159,16 +158,18 @@ class OrderResource extends Resource
                                             ->columnSpan(3),
                                     ])->columns(12),
 
-                                    Placeholder::make('gran_total_placeholder')
+                                    Placeholder::make('grand_total_placeholder')
                                         ->label('Grand Total')
                                         ->content(function($get, $set) {
                                             $total =0;
                                             if(!$repeaters = $get('items')){
                                                 return $total;
                                             }
+                                            
                                             foreach($repeaters as $key => $repeater){
                                                 $total += $get("items.{$key}.total_amount");
                                             }
+                                            $set('grand_total', $total);
                                             return Number::currency($total, 'USD');
                                         }),
 
@@ -194,9 +195,9 @@ class OrderResource extends Resource
                 ->sortable(),
 
             TextColumn::make('grand_total')
-                ->label('Grand Total')
                 ->numeric()
-                ->sortable(),
+                ->sortable()
+                ->money('USD'),
 
             TextColumn::make('payment_method')
                 ->searchable()
@@ -217,10 +218,10 @@ class OrderResource extends Resource
             SelectColumn::make('status')
                 ->options([
                     'new' => 'New',
+                    'delivered' => 'Delivered',
+                    'cancelled' => 'Cancelled',
                     'processing' => 'Processing',
                     'shipped' => 'Shipped',
-                    'delivered' => 'Delivered',
-                    'canceled' => 'Canceled',
                 ])
                 ->searchable()
                 ->sortable(),
