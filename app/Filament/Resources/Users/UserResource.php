@@ -86,6 +86,11 @@ class UserResource extends Resource
         ];
     }
 
+    public static function getGloballySearchableAttributes(): array
+{
+    return ['name', 'email'];
+}
+
     public static function getPages(): array
     {
         return [
@@ -94,4 +99,6 @@ class UserResource extends Resource
             'edit' => EditUser::route('/{record}/edit'),
         ];
     }
+    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?int $navigationSort = 1;
 }

@@ -35,7 +35,7 @@ class BrandResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::ComputerDesktop;
 
-    protected static ?string $recordTitleAttribute = 'Brand';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
@@ -113,4 +113,5 @@ class BrandResource extends Resource
             'edit' => EditBrand::route('/{record}/edit'),
         ];
     }
+    protected static ?int $navigationSort = 2;
 }

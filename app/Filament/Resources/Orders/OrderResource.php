@@ -272,4 +272,5 @@ class OrderResource extends Resource
             'edit' => EditOrder::route('/{record}/edit'),
         ];
     }
+    protected static ?int $navigationSort = 5;
 }

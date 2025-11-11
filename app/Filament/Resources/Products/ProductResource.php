@@ -184,4 +184,5 @@ class ProductResource extends Resource
             'edit' => EditProduct::route('/{record}/edit'),
         ];
     }
+    protected static ?int $navigationSort = 4;
 }
