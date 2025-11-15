@@ -9,11 +9,11 @@
     </head>
 
     <body class="bg-slate-300">
-
+        @livewire('partials.navbar')
        <main>
          {{ $slot }}
        </main>
-
+       @livewire('partials.footer')
         @livewireScripts
     </body>
 </html>
