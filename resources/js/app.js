@@ -4,6 +4,9 @@ import './bootstrap'
 
 // Import Preline
 import 'preline'
+import Swal from 'sweetalert2'
+
+window.Swal = Swal
 
 // ---- Collapse Polyfill ----
 function collapsePolyfill() {
