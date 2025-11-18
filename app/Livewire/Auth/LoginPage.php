@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Auth;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Login Page')]
 class LoginPage extends Component
 {
     public function render()
