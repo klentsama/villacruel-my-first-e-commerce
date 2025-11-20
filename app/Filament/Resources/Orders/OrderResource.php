@@ -59,6 +59,8 @@ class OrderResource extends Resource
                                         'credit_card' => 'Credit Card',
                                         'paypal' => 'PayPal',
                                         'bank_transfer' => 'Bank Transfer',
+                                        'cod' => 'Cash on Delivery',
+                                        'stripe' => 'Stripe',
                                     ])
                                     ->required(),
 

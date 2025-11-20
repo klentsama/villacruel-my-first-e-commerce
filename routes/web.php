@@ -46,8 +46,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/checkout', CheckoutPage::class);
     Route::get('/myorders', MyOrdersPage::class);
     Route::get('/myorders/{orders}', MyOrderDetailPage::class);
-    Route::get('/success', SuccessPage::class);
-    Route::get('/cancel', CancelPage::class);
+    Route::get('/success', SuccessPage::class)->name('success');
+    Route::get('/cancel', CancelPage::class)->name('cancel');
 
 });
 
