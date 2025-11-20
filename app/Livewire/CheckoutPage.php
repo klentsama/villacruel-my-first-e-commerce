@@ -3,9 +3,11 @@
 namespace App\Livewire;
 
 use App\Helpers\CartManagement;
+use App\Mail\OrderPlaced;
 use App\Models\Address;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Stripe\Checkout\Session;
@@ -65,7 +67,7 @@ class CheckoutPage extends Component
         $order->payment_method = $this->payment_method;
         $order->payment_status = 'pending';
         $order->status = 'new';
-        $order->currency = 'INR';
+        $order->currency = 'USD';
         $order->shipping_amount = '0';
         $order->shipping_method = 'none';
         $order->notes = 'Order Placed by ' . Auth::user()->name;
@@ -90,7 +92,7 @@ class CheckoutPage extends Component
                 'customer_email' => Auth::user()->email,
                 'line_items' => $line_items,
                 'mode' => 'payment',
-                'success_url' => route('success') . '?session/_id={CHECKOUT_SESSION_ID}',
+                'success_url' => route('success') . '?session_id={CHECKOUT_SESSION_ID}',
                 'cancel_url' =>  route('cancel'),
             ]);
 
@@ -105,6 +107,7 @@ class CheckoutPage extends Component
         $address->save();
         $order->items()->createMany($cart_items);
         CartManagement::clearCartItems();
+        Mail::to(request()->user())->send(new OrderPlaced($order));
         return redirect($redirect_url);
 
     }
