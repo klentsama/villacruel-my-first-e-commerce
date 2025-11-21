@@ -7,6 +7,5 @@
     View Order
     </x-mail::button>
 
-    Thanks,<br>
-    {{ config('app.name') }}
+    
 </x-mail::message>
